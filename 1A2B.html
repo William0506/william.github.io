@@ -22,7 +22,8 @@ function diger(){rdig=dig.value
 if(rdig%1!=0||rdig<1||rdig>10){alert("請輸入1~10的整數")}else{do{ans2=new Set()
 for(i=0;i<rdig;i++){ans2.add(Math.floor(Math.random()*10))}}
 while(ans2[0]==0||ans2.size!=rdig)
-ans2.forEach(function(i){ans=ans*10+i});alert("答案已設置")}}
+ans2.forEach(function(i){ans=ans*10+i})
+alert("答案已設置");console.log(ans)}}
 function gs(){user=use.value
 if(ans==0){alert("答案未設置");return}
 if(user.length!=rdig){alert("請輸入"+rdig+"位數");return}
