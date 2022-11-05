@@ -4,9 +4,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="1A2B" content="width=device-width, initial-scale=1.0">
     <title>1A2B</title>
-</head>
-<body>
-<div style="text-align:center;">
+</head><body>
+    <div style="text-align:center;">
     <h2>歡迎來到1A2B!</h2>
     <h2>請在每次作答時輸入一個n位數(不重複)</h2>
     <h2>A為數字正確且位置正確的數量</h2>
@@ -19,17 +18,18 @@
 dig=document.getElementById("di");use=document.getElementById("us");ans=0
 b1=document.getElementById("bn1");b2=document.getElementById("bn2");guess=0
 function diger(){rdig=dig.value
-if(rdig%1!=0||rdig<1||rdig>10){alert("請輸入1~10的整數")}else{do{ans2=new Set()
+if(rdig%1!=0||rdig<1||rdig>10){alert("請輸入1~10的整數")}else{do{ans=0;ans2=new Set()
 for(i=0;i<rdig;i++){ans2.add(Math.floor(Math.random()*10))}}
 while(ans2[0]==0||ans2.size!=rdig)
 ans2.forEach(function(i){ans=ans*10+i})
-alert("答案已設置");console.log(ans)}}
+alert("答案已設置!");console.log(ans)}}
 function gs(){user=use.value
 if(ans==0){alert("答案未設置");return}
 if(user.length!=rdig){alert("請輸入"+rdig+"位數");return}
+if(user<10**rdig){alert("開頭不能為0");return}
 for(x=rdig**2-1;x>0;x--){while(Math.floor(x/rdig)>=x%rdig&&x!=0){x--}
-if((user+"").slice(x%rdig,x%rdig+1)==(user+"").slice(Math.floor(x/rdig),Math.floor(x/rdig)+1)&&x!=0){alert("數字不能重複");return}}
-if(x>0){return}guess+=1;a=b=x=0
+if((user+"").slice(x%rdig,x%rdig+1)==(user+"").slice(Math.floor(x/rdig),Math.floor(x/rdig)+1)&&x!=0)
+{alert("數字不能重複");return}}if(x>0){return}guess+=1;a=b=x=0
 if(user==ans){alert("答對了!你總共猜了"+guess+"次");return}
 for(x=0;x<rdig**2;x++){if((user+"").slice(x%rdig,x%rdig+1)==(ans+"").slice(Math.floor(x/rdig),Math.floor(x/rdig)+1))
 {if(x%rdig==Math.floor(x/rdig)){a++}else{b++}}}alert(a+"A"+b+"B")}
