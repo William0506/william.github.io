@@ -29,12 +29,12 @@ function gs(){user=use.value;if(ans==0){jt.innerHTML="<div><h1>答案未設置!<
 if(user.length!=rdig){jt.innerHTML="<div><h1>請輸入"+rdig+"位數!</h1><div>";return}
 if(user<10**(rdig-1)){jt.innerHTML="<div><h1>開頭不能為0!</h1><div>";return}
 for(x=rdig**2-1;x>0;x--){while(Math.floor(x/rdig)>=x%rdig&&x!=0){x--}
+if(re.innerHTML.includes(user)){jt.innerHTML="<div><h1>該答案已猜過!</h1><div>";return}
 if((user+"").slice(x%rdig,x%rdig+1)==(user+"").slice(Math.floor(x/rdig),Math.floor(x/rdig)+1)&&x!=0)
 {jt.innerHTML="<div><h1>數字不能重複!</h1><div>";return}}if(x>0){return}guess+=1;a=b=x=0;jt.innerHTML=""
 if(user==ans){re.innerHTML+='<div><h2>'+user+"</h2><h2>答對了!總共猜了"+guess+"次</h2><hr><div>"
 jt.innerHTML="<div><h1>答案未重置!</h1><div>";alert("答對了!總共猜了"+guess+"次");return}
 for(x=0;x<rdig**2;x++){if((user+"").slice(x%rdig,x%rdig+1)==(ans+"").slice(Math.floor(x/rdig),Math.floor(x/rdig)+1))
 {if(x%rdig==Math.floor(x/rdig)){a++}else{b++}}}
-if((re.innerHTML).includes(user)){jt.innerHTML="<div><h1>該答案已猜過!</h1><div>";return}
 re.innerHTML+='<div><h2>'+user+"</h2><h2>"+a+"A"+b+"B</h2><hr><div>"}
 </script></body></html>
