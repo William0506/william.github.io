@@ -7,9 +7,10 @@
 </head>
 <body>
 <div style="text-align:center">
+<button id="bn"></button>
 <h1>這是一個計算機</h1>
 <h2>接受的運算符號有:運算符號:+(加法)-(減法)*(乘法)/(除法)//(浮點除)%(取餘數)**(冪運算")</h2>
-<h2>運算函式:sqrt(底數,次數)(開根號)abs(絕對值)round(四捨五入)ceil(無進)floor(無捨)</h2>
+<h2>運算函式:root(底數,次數)(根號)sqrt(平方根)cbrt(立方根)abs(絕對值)round(四捨五入)ceil(無進)floor(無捨)</h2>
 <h2>三角函數(角度):sin.cos.tan.cot.sec.csc.asin.acos.atan.acot.asec.acsc</h2>
 <h2>指數相關:log(基數,真數)(對數)lb(2為底的對數)ln(e為底的對數)lg(10為底的對數)exp(e的n次方)</h2>
 <h2>n!(階乘)!n(次階乘)!!(雙階乘)?(階加)??(雙階加)</h2>
@@ -24,11 +25,11 @@
 <script>
 function b(list){i=0
     func=["abs(","round(","ceil(","floor(","sin(","cos(","tan(","cot(","sec(","csc(",
-    "asin(","acos(","atan(","acot(","asec(","acsc(","lb(","ln(","lg(","exp("]
+    "asin(","acos(","atan(","acot(","asec(","acsc(","lb(","ln(","lg(","exp(","sqrt(","cbrt("]
     func2=["+","-","*","/","//","%","**"]
     func3=["!","!!","?","??"]
     while(i<list.length){
-        if(list.slice(i,i+5).join("")=="sqrt("&&!isNaN(list[i+5])
+        if(list.slice(i,i+5).join("")=="root("&&!isNaN(list[i+5])
         &&!isNaN(list[i+7])&&list[i+6]==","){result=list[i+5]**(1/list[i+7])
             list.splice(i,9,result)}
         else if(list.slice(i,i+4).join("")=="log("&&!isNaN(list[i+4])
@@ -53,7 +54,7 @@ function b(list){i=0
             if(j==5&&list[i+2]!="**"){result=list[i-1]%list[i+1]}
             if(j==6&&list[i+2]!="**"){result=list[i-1]**list[i+1]}
             if(result!="hi"){list.splice(i-1,3,result);i--}}
-        else if(list[i-1]=="("&&list[i+1]==")"&&!["s","d","l","r","n","t","c","b","g","p"].includes(list[i-2]))
+        else if(list[i-1]=="("&&list[i+1]==")"&&!["s","d","l","r","n","t","c","b","g","p","(",","].includes(list[i-2]))
         {result=list[i];list.splice(i-1,3,result);i--}
         for(j of func){if(list.slice(i,i+j.length).join("")==j
         &&!isNaN(list[i+j.length])&&list[i+j.length+1]==")"){
@@ -77,12 +78,12 @@ function b(list){i=0
             if(j=="ln("){result=Math.log(list[i+3])}
             if(j=="lg("){result=Math.log10(list[i+3])}
             if(j=="exp("){result=Math.exp(list[i+4])}
-            list.splice(i,j.length+2,result)}}i++}
-    return list}
-function a(){r=1
+            if(j=="sqrt("){result=list[i+5]**0.5}
+            if(j=="cbrt("){result=list[i+5]**(1/3)}
+            list.splice(i,j.length+2,result)}}i++}return list}
+function a(){r=1;i=0
     ans=document.getElementById("s")
     Data=Array.from(document.getElementById("lin").value)
-    i=0
     while(i<Data.length){
         while(!isNaN(Data[i]+Data[i+1])&&Data[i]!="+"&&(Data[i]!="-"||isNaN(Data[i-1])))
         {Data.splice(i,2,Data[i]+Data[i+1])}
