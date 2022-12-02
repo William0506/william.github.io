@@ -7,7 +7,6 @@
 </head>
 <body>
 <div style="text-align:center">
-<button id="bn"></button>
 <h1>這是一個計算機</h1>
 <h2>接受的運算符號有:運算符號:+(加法)-(減法)*(乘法)/(除法)//(浮點除)%(取餘數)**(冪運算")</h2>
 <h2>運算函式:root(底數,次數)(根號)sqrt(平方根)cbrt(立方根)abs(絕對值)round(四捨五入)ceil(無進)floor(無捨)</h2>
@@ -46,8 +45,8 @@ function b(list){i=0
             if(j!=-1){list.splice(i-1,2,result);i--}}
         if(!isNaN(list[i+1])&&!isNaN(list[i-1])&&!func3.includes(list[i+2]))
         {j=func2.indexOf(list[i]);result="hi"
-            if(j==0&&(!func2.slice(2).includes(list[i+2])||!func2.slice(2).includes(list[i-2]))){result=Number(list[i-1])+Number(list[i+1])}
-            if(j==1&&(!func2.slice(2).includes(list[i+2])||!func2.slice(2).includes(list[i-2]))){result=list[i-1]-list[i+1]}
+            if(j==0&&!(func2.slice(2).includes(list[i+2])||func2.slice(2).includes(list[i-2]))){result=Number(list[i-1])+Number(list[i+1])}
+            if(j==1&&!(func2.slice(2).includes(list[i+2])||func2.slice(2).includes(list[i-2]))){result=list[i-1]-list[i+1]}
             if(j==2&&list[i+2]!="**"&&list[i-2]!="**"){result=list[i-1]*list[i+1]}
             if(j==3&&list[i+2]!="**"&&list[i-2]!="**"){result=list[i-1]/list[i+1]}
             if(j==4&&list[i+2]!="**"&&list[i-2]!="**"){result=Math.floor(list[i-1]/list[i+1])}
