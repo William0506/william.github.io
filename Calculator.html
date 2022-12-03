@@ -11,17 +11,22 @@
 <h2>接受的運算符號有:運算符號:+(加法)-(減法)*(乘法)/(除法)//(浮點除)%(取餘數)**(冪運算")</h2>
 <h2>運算函式:root(底數,次數)(根號)sqrt(平方根)cbrt(立方根)abs(絕對值)round(四捨五入)ceil(無進)floor(無捨)</h2>
 <h2>三角函數(角度):sin.cos.tan.cot.sec.csc.asin.acos.atan.acot.asec.acsc</h2>
+<a>(三角函數計算方式: </a><button id="btn" onclick="c()"></button><a>)</a>
 <h2>指數相關:log(基數,真數)(對數)lb(2為底的對數)ln(e為底的對數)lg(10為底的對數)exp(e的n次方)</h2>
-<h2>n!(階乘)!n(次階乘)!!(雙階乘)?(階加)??(雙階加)</h2>
-<h2>隨機數:輸入rand</h2>
+<h2>階加/乘系列:n!(階乘)!n(次階乘)!!(雙階乘)?(階加)??(雙階加)</h2>
+<h2>隨機數:rand 圓周率:pi 自然常數:E</h2>
 <textarea id="lin"rows="5" cols="60" autofocus placeholder="算式輸入區"></textarea><br>
 <input type="button" onclick="a()" value="計算"><br>
 <h1>示範</h1>
-<h2>sqrt(3**3,sqrt(9,2))=3</h2>
+<h2>root(3**3,root(9,2))=3</h2>
 <h2>lb(abs(-32))=5</h2>
 <h1>結果</h1>
 <h2 id="s"></h2></div>
 <script>
+tf=1;btn.innerHTML="角度"
+function c(){
+    if(tf==1){tf=0;btn.innerHTML="弧度"}
+    else{tf=1;btn.innerHTML="角度"}}
 function b(list){i=0
     func=["abs(","round(","ceil(","floor(","sin(","cos(","tan(","cot(","sec(","csc(",
     "asin(","acos(","atan(","acot(","asec(","acsc(","lb(","ln(","lg(","exp(","sqrt(","cbrt("]
@@ -61,7 +66,7 @@ function b(list){i=0
             if(j=="round("){result=Math.round(list[i+6])}
             if(j=="ceil("){result=Math.ceil(list[i+5])}
             if(j=="floor("){result=Math.floor(list[i+6])}
-            if(j=="sin("){result=Math.sin(list[i+4]*Math.PI/180)}
+            if(tf==1){if(j=="sin("){result=Math.sin(list[i+4]*Math.PI/180)}
             if(j=="cos("){result=Math.cos(list[i+4]*Math.PI/180)}
             if(j=="tan("){result=Math.tan(list[i+4]*Math.PI/180)}
             if(j=="cot("){result=1/Math.tan(list[i+4]*Math.PI/180)}
@@ -72,7 +77,19 @@ function b(list){i=0
             if(j=="atan("){result=Math.atan(list[i+5])*180/Math.PI}
             if(j=="acot("){result=1/Math.atan(list[i+5])*Math.PI/180}
             if(j=="asec("){result=1/Math.acos(list[i+5])*Math.PI/180}
-            if(j=="acsc("){result=1/Math.asin(list[i+5])*Math.PI/180}
+            if(j=="acsc("){result=1/Math.asin(list[i+5])*Math.PI/180}}
+            else{if(j=="sin("){result=Math.sin(list[i+4])}
+            if(j=="cos("){result=Math.cos(list[i+4])}
+            if(j=="tan("){result=Math.tan(list[i+4])}
+            if(j=="cot("){result=1/Math.tan(list[i+4])}
+            if(j=="sec("){result=1/Math.cos(list[i+4])}
+            if(j=="csc("){result=1/Math.sin(list[i+4])}
+            if(j=="asin("){result=Math.asin(list[i+5])}
+            if(j=="acos("){result=Math.acos(list[i+5])}
+            if(j=="atan("){result=Math.atan(list[i+5])}
+            if(j=="acot("){result=1/Math.atan(list[i+5])}
+            if(j=="asec("){result=1/Math.acos(list[i+5])}
+            if(j=="acsc("){result=1/Math.asin(list[i+5])}}
             if(j=="lb("){result=Math.log2(list[i+3])}
             if(j=="ln("){result=Math.log(list[i+3])}
             if(j=="lg("){result=Math.log10(list[i+3])}
@@ -87,6 +104,8 @@ function a(){r=1;i=0
         while(!isNaN(Data[i]+Data[i+1])&&Data[i]!="+"&&(Data[i]!="-"||isNaN(Data[i-1])))
         {Data.splice(i,2,Data[i]+Data[i+1])}
         if(Data.slice(i,i+4).join("")=="rand"){Data.splice(i,4,Math.random())}
+        if(Data.slice(i,i+2).join("")=="pi"){Data.splice(i,2,Math.PI)}
+        if(Data[i]=="E"){Data[i]=Math.E}
         if(Data[i]==Data[i+1]&&(Data[i]=="!"||Data[i]=="?"||Data[i]=="*"||Data[i]=="/"))
         {Data.splice(i,2,Data[i]+Data[i+1])};i++}r=1
     while(Data.length>1){lng=Data.length;Data=b(Data);if(Data.length>=lng)
