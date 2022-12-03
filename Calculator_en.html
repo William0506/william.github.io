@@ -1,0 +1,108 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="Calculator" content="width=device-width, initial-scale=1.0">
+<title>Calculator</title>
+</head><body><div style="text-align:center">
+<h1>This is a Calculator</h1>
+<h2>We have:+(plus)-(minus)*(times)/(divide)//(floating divide)%(remainder)**(exponentiation)</h2>
+<h2>functions:root(x,y)(yth root of x)sqrt.cbrt.abs(absolute)round.ceil.floor.</h2>
+<h2>trigonometric functions:sin.cos.tan.cot.sec.csc.asin.acos.atan.acot.asec.acsc</h2>
+<a>(trigonometric function calculation method: </a><button id="btn" onclick="c()"></button><a>)</a>
+<h2>logarithm family:log(base,required)lb(base 2)ln(base E)lg(base 10)exp(e**n)</h2>
+<h2>termial and factorial:n!(factorial)!n(staggered)!!(double factorial)?(termial)??(double termial)</h2>
+<h2>random number0~1:rand,basic number:pi,E</h2>
+<textarea id="lin" rows="5" cols="60" autofocus placeholder="equation"></textarea><br>
+<input type="button" onclick="a()" value="Calculate"><br>
+<h1>example</h1><h2>root(3**3,root(9,2))=3</h2><h2>lb(abs(-32))=5</h2>
+<h1>result</h1><h2 id="s"></h2><a href="Calculator_tw.html">中文版Chinese mode</a></div>
+<script>
+tf=1;btn.innerHTML="angle"
+function c(){
+    if(tf==1){tf=0;btn.innerHTML="radian"}
+    else{tf=1;btn.innerHTML="angle"}}
+function b(list){i=0
+    func=["abs(","round(","ceil(","floor(","sin(","cos(","tan(","cot(","sec(","csc(",
+    "asin(","acos(","atan(","acot(","asec(","acsc(","lb(","ln(","lg(","exp(","sqrt(","cbrt("]
+    func2=["+","-","*","/","//","%","**"]
+    func3=["!","!!","?","??"]
+    while(i<list.length){
+        if(list.slice(i,i+5).join("")=="root("&&!isNaN(list[i+5])
+        &&!isNaN(list[i+7])&&list[i+6]==","){result=list[i+5]**(1/list[i+7])
+            list.splice(i,9,result)}
+        else if(list.slice(i,i+4).join("")=="log("&&!isNaN(list[i+4])
+        &&!isNaN(list[i+6])&&list[i+5]==","){
+            result=Math.log(list[i+6])/Math.log(list[i+4])
+            list.splice(i,8,result)}
+        else if(list[i+1]%1==0&&list[i+1]>0&&list[i]=="!"){result=1
+            for(k=1;k<=list[i+1];k++){result*=k;result-=(k%2)*2-1}list.splice(i,2,result)}
+        else if(list[i-1]%1==0&&list[i-1]>0){j=func3.indexOf(list[i])
+            if(j==0){result=1;for(k=2;k<=list[i-1];k++){result*=k}}
+            else if(j==1){result=1;for(k=list[i-1];k>1;k-=2){result*=k}}
+            else if(j==2){result=(list[i-1]**2+Number(list[i-1]))/2}
+            else if(j==3){result=(list[i-1]/2+0.5)**2+(list[i-1]%2-1)/4}
+            if(j!=-1){list.splice(i-1,2,result);i--}}
+        if(!isNaN(list[i+1])&&!isNaN(list[i-1])&&!func3.includes(list[i+2]))
+        {j=func2.indexOf(list[i]);result="hi"
+            if(j==0&&!(func2.slice(2).includes(list[i+2])||func2.slice(2).includes(list[i-2]))){result=Number(list[i-1])+Number(list[i+1])}
+            if(j==1&&!(func2.slice(2).includes(list[i+2])||func2.slice(2).includes(list[i-2]))){result=list[i-1]-list[i+1]}
+            if(j==2&&list[i+2]!="**"&&list[i-2]!="**"){result=list[i-1]*list[i+1]}
+            if(j==3&&list[i+2]!="**"&&list[i-2]!="**"){result=list[i-1]/list[i+1]}
+            if(j==4&&list[i+2]!="**"&&list[i-2]!="**"){result=Math.floor(list[i-1]/list[i+1])}
+            if(j==5&&list[i+2]!="**"&&list[i-2]!="**"){result=list[i-1]%list[i+1]}
+            if(j==6&&list[i+2]!="**"){result=list[i-1]**list[i+1]}
+            if(result!="hi"){list.splice(i-1,3,result);i--}}
+        else if(list[i-1]=="("&&list[i+1]==")"&&!["s","d","l","r","n","t","c","b","g","p","(",","].includes(list[i-2]))
+        {result=list[i];list.splice(i-1,3,result);i--}
+        for(j of func){if(list.slice(i,i+j.length).join("")==j
+        &&!isNaN(list[i+j.length])&&list[i+j.length+1]==")"){
+            if(j=="abs("){result=Math.abs(list[i+4])}
+            if(j=="round("){result=Math.round(list[i+6])}
+            if(j=="ceil("){result=Math.ceil(list[i+5])}
+            if(j=="floor("){result=Math.floor(list[i+6])}
+            if(tf==1){if(j=="sin("){result=Math.sin(list[i+4]*Math.PI/180)}
+            if(j=="cos("){result=Math.cos(list[i+4]*Math.PI/180)}
+            if(j=="tan("){result=Math.tan(list[i+4]*Math.PI/180)}
+            if(j=="cot("){result=1/Math.tan(list[i+4]*Math.PI/180)}
+            if(j=="sec("){result=1/Math.cos(list[i+4]*Math.PI/180)}
+            if(j=="csc("){result=1/Math.sin(list[i+4]*Math.PI/180)}
+            if(j=="asin("){result=Math.asin(list[i+5])*180/Math.PI}
+            if(j=="acos("){result=Math.acos(list[i+5])*180/Math.PI}
+            if(j=="atan("){result=Math.atan(list[i+5])*180/Math.PI}
+            if(j=="acot("){result=1/Math.atan(list[i+5])*Math.PI/180}
+            if(j=="asec("){result=1/Math.acos(list[i+5])*Math.PI/180}
+            if(j=="acsc("){result=1/Math.asin(list[i+5])*Math.PI/180}}
+            else{if(j=="sin("){result=Math.sin(list[i+4])}
+            if(j=="cos("){result=Math.cos(list[i+4])}
+            if(j=="tan("){result=Math.tan(list[i+4])}
+            if(j=="cot("){result=1/Math.tan(list[i+4])}
+            if(j=="sec("){result=1/Math.cos(list[i+4])}
+            if(j=="csc("){result=1/Math.sin(list[i+4])}
+            if(j=="asin("){result=Math.asin(list[i+5])}
+            if(j=="acos("){result=Math.acos(list[i+5])}
+            if(j=="atan("){result=Math.atan(list[i+5])}
+            if(j=="acot("){result=1/Math.atan(list[i+5])}
+            if(j=="asec("){result=1/Math.acos(list[i+5])}
+            if(j=="acsc("){result=1/Math.asin(list[i+5])}}
+            if(j=="lb("){result=Math.log2(list[i+3])}
+            if(j=="ln("){result=Math.log(list[i+3])}
+            if(j=="lg("){result=Math.log10(list[i+3])}
+            if(j=="exp("){result=Math.exp(list[i+4])}
+            if(j=="sqrt("){result=list[i+5]**0.5}
+            if(j=="cbrt("){result=list[i+5]**(1/3)}
+            list.splice(i,j.length+2,result)}}i++}return list}
+function a(){r=1;i=0
+    ans=document.getElementById("s")
+    Data=Array.from(document.getElementById("lin").value)
+    while(i<Data.length){
+        while(!isNaN(Data[i]+Data[i+1])&&Data[i]!="+"&&(Data[i]!="-"||isNaN(Data[i-1])))
+        {Data.splice(i,2,Data[i]+Data[i+1])}
+        if(Data.slice(i,i+4).join("")=="rand"){Data.splice(i,4,Math.random())}
+        if(Data.slice(i,i+2).join("")=="pi"){Data.splice(i,2,Math.PI)}
+        if(Data[i]=="E"){Data[i]=Math.E}
+        if(Data[i]==Data[i+1]&&(Data[i]=="!"||Data[i]=="?"||Data[i]=="*"||Data[i]=="/"))
+        {Data.splice(i,2,Data[i]+Data[i+1])};i++}r=1
+    while(Data.length>1){leng=Data.length;Data=b(Data);if(Data.length>=leng)
+        {r=0;s.innerHTML="Error!";break}}
+    if(r){s.innerHTML=Data}}
+</script></body></html>
